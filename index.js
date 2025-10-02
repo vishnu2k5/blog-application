@@ -16,13 +16,14 @@ app.set('views', path.resolve('./views'));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(checkForAuthenticationCookie('token'));
+app.use(express.static(path.resolve("./public")));
 
 app.get('/', async(req, res) => {
     // console.log(req.user);
     const allBlogs = await Blog.find({}).populate('createdBy').sort({createdAt: -1});
   res.render("home",{
     user: req.user,
-    Blogs: allBlogs
+    blogs: allBlogs
 });
 });
 
