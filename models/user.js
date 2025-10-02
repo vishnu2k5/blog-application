@@ -1,5 +1,6 @@
 const { createHmac, randomBytes } = require("crypto");
 const { Schema, model } = require("mongoose");
+const { createTokenForUser } = require("../services/authentication");
 
 
 const userSchema = new Schema(
@@ -36,6 +37,7 @@ const userSchema = new Schema(
 userSchema.pre("save", function (next) {
   const user = this;
 
+  // if password wasn't modified, continue the middleware chain
   if (!user.isModified("password")) return;
 
   const salt = randomBytes(16).toString();
@@ -64,7 +66,8 @@ userSchema.static(
 
     if (hashedPassword !== userProvidedHash) throw new Error("Invalid password");
 
-    return {userId: user._id, fullName: user.fullName, email: user.email, role: user.role};
+    const token = createTokenForUser(user);
+    return token;
   }
 );
 
