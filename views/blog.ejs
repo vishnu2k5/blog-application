@@ -1,12 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <%-include('partials/head')%>
+    <title>blog</title>
 </head>
 <body>
-    <%- JSON.stringify(blog) %>
-    
+    <%- include('./partials/nav') %>
+
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="card mb-4 shadow-sm">
+            <% if (blog.coverImageURL) { %>
+            <img src="<%= blog.coverImageURL %>" class="card-img-top" alt="Cover image for <%= blog.title %>">
+            <% } %>
+            <div class="card-body">
+              <h2 class="card-title"><%= blog.title %></h2>
+              <p class="text-muted">Published on <%= new Date(blog.createdAt).toLocaleString() %></p>
+              <hr />
+              <div class="blog-body" style="white-space:pre-wrap"><%= blog.body %></div>
+            </div>
+          </div>
+
+          <div class="card mb-4">
+            <div class="card-body">
+              <h5 class="card-title">Comments (<%= comments.length %>)</h5>
+
+              <% if (locals.user) { %>
+              <form action="/blog/comment/<%= blog._id %>" method="post" class="mb-3">
+                <div class="input-group">
+                  <input type="text" name="content" class="form-control" placeholder="Write a comment...">
+                  <button class="btn btn-primary" type="submit">Add</button>
+                </div>
+              </form>
+              <% } else { %>
+              <p class="text-muted">Please <a href="/user/signin">sign in</a> to add a comment.</p>
+              <% } %>
+
+              <div class="list-group">
+                <% comments.forEach(comment => { %>
+                <div class="list-group-item">
+                  <div class="d-flex align-items-start">
+                    <img src="<%= comment.createdBy && comment.createdBy.profileImageURL ? comment.createdBy.profileImageURL : '/images/default.png' %>" class="rounded-circle me-3" width="48" height="48" alt="Profile">
+                    <div>
+                      <strong><%= comment.createdBy ? comment.createdBy.fullName : 'Unknown' %></strong>
+                      <div class="text-muted small"><%= new Date(comment.createdAt).toLocaleString() %></div>
+                      <div class="mt-2" style="white-space:pre-wrap"><%= comment.content %></div>
+                    </div>
+                  </div>
+                </div>
+                <% }) %>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="card mb-4 shadow-sm">
+            <div class="card-body text-center">
+              <img src="<%= blog.createdBy && blog.createdBy.profileImageURL ? blog.createdBy.profileImageURL : '/images/default.png' %>" class="rounded-circle mb-3" width="100" height="100" alt="Author">
+              <h5 class="card-title"><%= blog.createdBy ? blog.createdBy.fullName : 'Author' %></h5>
+              <p class="text-muted"><%= blog.createdBy && blog.createdBy.role ? blog.createdBy.role : '' %></p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+<%-include('partials/script')%>
 </body>
 </html>
