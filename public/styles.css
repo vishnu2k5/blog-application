@@ -65,3 +65,41 @@ body{
 .card {
   border-radius: 8px;
 }
+
+/* Blog specific image sizing */
+.cover-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 480px; /* keep images from becoming too large */
+  object-fit: contain;
+  margin: 0 auto;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+/* smaller screens: reduce the max-height so images don't crowd the page */
+@media (max-width: 767px) {
+  .cover-image {
+    max-height: 300px;
+  }
+}
+
+.author-avatar {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  display: inline-block;
+}
+
+.comment-avatar {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.blog-body {
+  font-size: 1.02rem;
+  line-height: 1.7;
+}
