@@ -7,36 +7,43 @@
   <body>
     <%- include('./partials/nav') %>
 
-    <div class="container mt-3">
-      <form action="/blog" method="post" enctype="multipart/form-data">
-        <div class="mb-3">
-          <label for="coverImage" class="form-label">Cover Image</label>
-          <input
-            type="file"
-            class="form-control"
-            id="coverImage"
-            name="coverImage"
-            aria-describedby="coverImage"
-          />
+    <div class="container mt-5">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h4 class="card-title mb-3">Add a new blog post</h4>
+
+              <% if (locals.error) { %>
+              <div class="alert alert-danger" role="alert"><%= locals.error %></div>
+              <% } %>
+
+              <form action="/blog" method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                  <label for="coverImage" class="form-label">Cover image</label>
+                  <input id="coverImage" name="coverImage" class="form-control" type="file" accept="image/*">
+                  <div class="form-text">Optional. Recommended size: 1200x600</div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="title" class="form-label">Title</label>
+                  <input id="title" name="title" type="text" class="form-control" placeholder="Enter a catchy title" required>
+                </div>
+
+                <div class="mb-3">
+                  <label for="body" class="form-label">Body</label>
+                  <textarea id="body" name="body" class="form-control" rows="12" placeholder="Write your post here..." required></textarea>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center">
+                  <a href="/" class="btn btn-secondary">Cancel</a>
+                  <button type="submit" class="btn btn-primary">Publish</button>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
-        <div class="mb-3">
-          <label for="title" class="form-label">Title</label>
-          <input
-            type="text"
-            class="form-control"
-            id="title"
-            name="title"
-            aria-describedby="title"
-          />
-        </div>
-        <div class="mb-3">
-          <label for="body">Body</label>
-          <textarea name="body" class="form-control" id="body"></textarea>
-        </div>
-        <div class="mb-3">
-          <button class="btn btn-primary">Submit</button>
-        </div>
-      </form>
+      </div>
     </div>
 
     <%- include('./partials/script') %>

@@ -1,0 +1,67 @@
+/* Custom site styles - overrides Bootstrap defaults for the navbar color scheme */
+:root{
+  --nav-start: #0b3d91; /* deep blue */
+  --nav-end: #0652a6;   /* slightly lighter blue */
+  --nav-accent: #ffd166; /* warm accent for active */
+}
+
+body{
+  background-color: #f7f9fc;
+}
+
+/* Navbar overrides */
+.navbar {
+  background: linear-gradient(90deg, var(--nav-start), var(--nav-end)) !important;
+  box-shadow: 0 2px 6px rgba(8,20,40,0.08);
+}
+
+.navbar .navbar-brand {
+  color: #ffffff !important;
+  font-weight: 700;
+}
+
+.navbar .nav-link {
+  color: rgba(255,255,255,0.9) !important;
+}
+
+.navbar .nav-link:hover {
+  color: #ffffff !important;
+  opacity: 0.95;
+}
+
+.navbar .nav-link.active {
+  color: var(--nav-accent) !important;
+  font-weight: 600;
+}
+
+/* Dropdown menu consistent look */
+.navbar .dropdown-menu {
+  background: linear-gradient(180deg, rgba(6,82,166,0.95), rgba(11,61,145,0.95));
+  border: none;
+}
+
+.navbar .dropdown-item {
+  color: #fff !important;
+}
+
+.navbar .dropdown-item:hover {
+  background: rgba(255,255,255,0.06);
+}
+
+/* Make nav toggler icon visible on custom bg */
+.navbar-toggler {
+  border-color: rgba(255,255,255,0.2) !important;
+}
+
+.navbar-toggler-icon {
+  filter: invert(1) brightness(2);
+}
+
+/* Small adjustments so alerts and cards look good on the new scheme */
+.alert {
+  border-radius: 6px;
+}
+
+.card {
+  border-radius: 8px;
+}

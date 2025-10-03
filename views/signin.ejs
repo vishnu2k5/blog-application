@@ -8,34 +8,54 @@
     <%- include('./partials/nav') %>
 
     <div class="container mt-4">
-      <form action="/user/signin" method="post">
-        <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label"
-            >Email address</label
-          >
-          <input
-            type="email"
-            name="email"
-            class="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-          />
-          <div id="emailHelp" class="form-text">
-            We'll never share your email with anyone else.
+      <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-5">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h4 class="card-title mb-3 text-center">Sign in to Blogify</h4>
+
+              <% if (locals.error) { %>
+              <div class="alert alert-danger" role="alert"><%= locals.error %></div>
+              <% } %>
+
+              <form action="/user/signin" method="post">
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email address</label>
+                  <input
+                    id="email"
+                    type="email"
+                    name="email"
+                    class="form-control"
+                    aria-describedby="emailHelp"
+                    required
+                    autofocus
+                  />
+                  <div id="emailHelp" class="form-text">We'll never share your email.</div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="password" class="form-label">Password</label>
+                  <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    class="form-control"
+                    required
+                  />
+                </div>
+
+                <div class="d-grid gap-2">
+                  <button type="submit" class="btn btn-primary">Sign in</button>
+                </div>
+              </form>
+
+              <div class="text-center mt-3">
+                <small class="text-muted">Don't have an account? <a href="/user/signup">Create one</a></small>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Password</label>
-          <input
-            name="password"
-            type="password"
-            class="form-control"
-            id="exampleInputPassword1"
-          />
-        </div>
-
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
+      </div>
     </div>
 
     <%- include('./partials/script') %>
