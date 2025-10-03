@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+require('dotenv').config();
 const path = require('path');
 const userRouter = require('./routes/user');  
 const blogRoute = require("./routes/blog");
@@ -8,9 +9,9 @@ const { checkForAuthenticationCookie } = require('./middleware/authentication');
 const  Blog  = require('./models/blog');
 
 
-mongoose.connect('mongodb://localhost:27017/blog-application').then(() => {console.log('Connected to MongoDB')}).catch((err) => console.log(err));
+mongoose.connect(process.env.MONGO_URI).then(() => {console.log('Connected to MongoDB')}).catch((err) => console.log(err));
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 app.set('view engine', 'ejs');
 app.set('views', path.resolve('./views'));
 app.use(express.urlencoded({ extended: false }));
